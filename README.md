@@ -1,2 +1,2 @@
-# weather_data_processor
+# weather_data_processing
 for Aktau weather station
