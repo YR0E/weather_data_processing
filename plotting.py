@@ -8,8 +8,8 @@ from plotly.subplots import make_subplots
 def set_default_layout(fig):
     fig.update_layout(
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
-        height=600, 
-        margin=dict(l=20, r=20, b=50, t=80, pad=4),
+        height=650, 
+        margin=dict(autoexpand=True),
         # template="seaborn",
     )
     return fig
@@ -22,6 +22,8 @@ def plot_weather_data(df):
     fig.add_trace(go.Scatter(x=df.index, y=df['Temp Out'], name='Temperature'), secondary_y=False)
     fig.add_trace(go.Scatter(x=df.index, y=df['Wind Speed'], name='Wind Speed'), secondary_y=False)
     fig.add_trace(go.Scatter(x=df.index, y=df['Solar Rad.'], name='Solar radiation'), secondary_y=True)
+
+    
 
     fig.update_layout(
         xaxis=dict(
