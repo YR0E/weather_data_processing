@@ -36,7 +36,7 @@ def process_weather_data(df):
     # df[['Wind Dir', 'Hi Dir']] = df[['Wind Dir', 'Hi Dir']].astype('category')
 
     # df.index.name = 'Time'
-    # df = df.interpolate()
+    df = df.interpolate()
 
     return df
 
