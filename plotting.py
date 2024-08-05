@@ -10,7 +10,7 @@ def set_default_layout(fig):
         legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
         height=650, 
         margin=dict(autoexpand=True),
-        # template="seaborn",
+        template="seaborn",
     )
     return fig
 
@@ -20,10 +20,7 @@ def plot_weather_data(df):
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
     fig.add_trace(go.Scatter(x=df.index, y=df['Temp Out'], name='Temperature'), secondary_y=False)
-    fig.add_trace(go.Scatter(x=df.index, y=df['Wind Speed'], name='Wind Speed'), secondary_y=False)
     fig.add_trace(go.Scatter(x=df.index, y=df['Solar Rad.'], name='Solar radiation'), secondary_y=True)
-
-    
 
     fig.update_layout(
         xaxis=dict(
@@ -33,7 +30,7 @@ def plot_weather_data(df):
             rangeslider=dict(visible=True), 
             type="date"),
 
-        yaxis=dict(title="Temperature, °C / Wind Speed, m/s"),
+        yaxis=dict(title="Temperature, °C"),
         yaxis2=dict(title="Solar Radiation, W/m2", side='right', showgrid=False),
     )
 
@@ -45,9 +42,11 @@ def plot_processed_data(df, parameters):
     # fig = go.Figure()
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
+    yaxis_label = []
     for param in parameters:
         if param!='Solar Rad.':
             fig.add_trace(go.Scatter(x=df.index, y=df[f'{param}'], name=f'{param}'))
+            yaxis_label.append(param)
         else:
             fig.add_trace(go.Scatter(x=df.index, y=df[f'{param}'], name=f'{param}'), secondary_y=True)
        
@@ -58,8 +57,8 @@ def plot_processed_data(df, parameters):
             rangeslider=dict(visible=True), 
             type="date"),
 
-        yaxis=dict(title="Temperature, °C / Wind Speed, m/s"),
-        yaxis2=dict(title="Solar Radiation, W/m2", side='right', showgrid=False),
+        yaxis=dict(title=f"{' /  '.join(yaxis_label)}"),
+        yaxis2=dict(title="Solar Rad., W/m2", side='right', showgrid=False),
     )
     
     fig = set_default_layout(fig)
