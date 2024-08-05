@@ -12,13 +12,14 @@ st.title('Weather data processing')
 
 uploaded_file = st.file_uploader('Choose a weather data file', type='txt')
 
-is_example = st.checkbox('Use example data', help='As an example, data from the weather station in Aktau for the period from March 21 to April 4, 2024 will be used.')
-if is_example:
+is_sample = st.checkbox('Use sample data', value=True*(uploaded_file is None),
+                        help='As an example, data from the weather station in Aktau for the period from March 21 to April 4, 2024 will be used. Use when no data is uploaded')
+if (is_sample) and (uploaded_file is None):
     uploaded_file = './data/meteo_2103-040424.txt'
 
 if uploaded_file is not None:
     # read uploaded file and process data
-    df_raw = read_weather_data(uploaded_file, is_example)
+    df_raw = read_weather_data(uploaded_file, is_sample)
     df = process_weather_data(df_raw.copy())
 
     st.subheader('Looking at raw data')

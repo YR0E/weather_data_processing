@@ -4,7 +4,7 @@ import streamlit as st
 
 
 @st.cache_data(max_entries=1)
-def read_weather_data(uploaded, is_example):
+def read_weather_data(uploaded, is_sample):
     ''' read txt file with weather data
     '''
 
@@ -16,7 +16,7 @@ def read_weather_data(uploaded, is_example):
     combined_headers = [' '.join(col).strip() for col in zip(*header_rows.values)]
 
     # Read the data using the combined headers
-    if not is_example: uploaded.seek(0,0)
+    if not is_sample: uploaded.seek(0,0)
     data = pd.read_csv(uploaded, sep='\t', skiprows=2, names=combined_headers)
     return data
 
