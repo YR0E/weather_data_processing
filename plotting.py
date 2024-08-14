@@ -1,8 +1,18 @@
-import pandas as pd
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+
+# Set the configuration for the Plotly chart, including the resolution settings
+config = {
+    "toImageButtonOptions": {
+        "format": "png",  # The format of the exported image (png, svg, etc.)
+        "filename": "weather_data_plot",  # Default filename
+        # "height": 1080,  # Image height
+        # "width": 1920,   # Image width
+        "scale": 2.5       # Increase the resolution (scales up the image)
+    }
+}
 
 
 def set_default_layout(fig):
@@ -35,7 +45,7 @@ def plot_weather_data(df):
     )
 
     fig = set_default_layout(fig)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True, config=config)
 
 
 def plot_processed_data(df, parameters):
@@ -62,7 +72,7 @@ def plot_processed_data(df, parameters):
     )
     
     fig = set_default_layout(fig)
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True, config=config)
 
 
 

@@ -36,6 +36,8 @@ def process_weather_data(df):
     # df[['Wind Dir', 'Hi Dir']] = df[['Wind Dir', 'Hi Dir']].astype('category')
 
     # df.index.name = 'Time'
+    # Convert object dtypes to appropriate types
+    df = df.infer_objects()
     df = df.interpolate()
 
     return df
